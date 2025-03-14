@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "What are the bond types present in molecule TR010?",
+            "response": "SELECT bond_type FROM bond WHERE molecule_id = 'TR010';"
+        },
+        {
+            "user": "How many times does each occur in molecule TR010?",
+            "response": "SELECT bond_type, COUNT(*) as count FROM bond WHERE molecule_id = 'TR010' GROUP BY bond_type;"
+        },
+        {
+            "user": "Which bond type is the most common in it?",
+            "response": "SELECT bond_type FROM (SELECT bond_type, COUNT(*) as count FROM bond WHERE molecule_id = 'TR010' GROUP BY bond_type ORDER BY count DESC LIMIT 1) AS T;"
+        },
+        {
+            "user": "Is it carcinogenic?",
+            "response": "SELECT label FROM molecule WHERE molecule_id = 'TR010';"
+        }
+    ]
+}

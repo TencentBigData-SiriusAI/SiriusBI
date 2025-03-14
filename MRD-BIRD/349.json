@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "Which artists have promotional cards?",
+            "response": "SELECT DISTINCT artist FROM cards WHERE isPromo = 1;"
+        },
+        {
+            "user": "Which one has the highest number of them?",
+            "response": "SELECT artist FROM cards WHERE isPromo = 1 GROUP BY artist ORDER BY COUNT(DISTINCT uuid) DESC LIMIT 1;"
+        },
+        {
+            "user": "How many rulings does each of their promotional cards have?",
+            "response": "SELECT T1.name, T1.artist, COUNT(T2.id) AS rulings_count FROM cards T1 JOIN rulings T2 ON T1.uuid = T2.uuid WHERE T1.isPromo = 1 AND T1.artist = (SELECT artist FROM cards WHERE isPromo = 1 GROUP BY artist ORDER BY COUNT(DISTINCT uuid) DESC LIMIT 1) GROUP BY T1.uuid;"
+        },
+        {
+            "user": "Which of their promotional cards has the most rulings?",
+            "response": "SELECT T1.name, T1.artist, T1.isPromo FROM cards T1 JOIN rulings T2 ON T1.uuid = T2.uuid WHERE T1.isPromo = 1 AND T1.artist = (SELECT artist FROM cards WHERE isPromo = 1 GROUP BY artist ORDER BY COUNT(DISTINCT uuid) DESC LIMIT 1) GROUP BY T1.uuid ORDER BY COUNT(T2.id) DESC LIMIT 1;"
+        }
+    ]
+}

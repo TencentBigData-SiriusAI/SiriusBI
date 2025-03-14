@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the maximum weight among all players?",
+            "response": "SELECT MAX(weight) AS max_weight FROM Player;"
+        },
+        {
+            "user": "Which player has that weight?",
+            "response": "SELECT player_api_id FROM Player WHERE weight = (SELECT MAX(weight) FROM Player) ORDER BY weight DESC LIMIT 1;"
+        },
+        {
+            "user": "What are the finishing and curve scores for that player?",
+            "response": "SELECT id, finishing, curve FROM Player_Attributes WHERE player_api_id = (SELECT player_api_id FROM Player WHERE weight = (SELECT MAX(weight) FROM Player) ORDER BY weight DESC LIMIT 1) LIMIT 1;"
+        }
+    ]
+}

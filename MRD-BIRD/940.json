@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "Which races in 2008 are named 'Chinese Grand Prix'?",
+            "response": "SELECT raceId FROM races WHERE year = 2008 AND name = 'Chinese Grand Prix';"
+        },
+        {
+            "user": "Show drivers who finished that race (time is not null).",
+            "response": "WITH race_info AS (SELECT raceId FROM races WHERE year = 2008 AND name = 'Chinese Grand Prix') SELECT driverId FROM results WHERE raceId = (SELECT raceId FROM race_info) AND time IS NOT NULL;"
+        },
+        {
+            "user": "Among them, which ones have participated in any Formula 1 races?",
+            "response": "WITH race_info AS (SELECT raceId FROM races WHERE year = 2008 AND name = 'Chinese Grand Prix'), finished_drivers AS (SELECT driverId FROM results WHERE raceId = (SELECT raceId FROM race_info) AND time IS NOT NULL) SELECT driverId FROM finished_drivers WHERE driverId IN (SELECT driverId FROM results GROUP BY driverId HAVING COUNT(raceId) >0 );"
+        },
+        {
+            "user": "Count the number of them.",
+            "response": "WITH race_info AS (SELECT raceId FROM races WHERE year = 2008 AND name = 'Chinese Grand Prix'), finished_drivers AS (SELECT driverId FROM results WHERE raceId = (SELECT raceId FROM race_info) AND time IS NOT NULL) SELECT COUNT(*) FROM (SELECT driverId FROM finished_drivers WHERE driverId IN (SELECT driverId FROM results GROUP BY driverId HAVING COUNT(raceId) >0 )) AS sub;"
+        }
+    ]
+}

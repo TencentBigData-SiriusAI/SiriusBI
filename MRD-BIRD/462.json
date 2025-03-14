@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which set does the card 'Ancestor's Chosen' belong to?",
+            "response": "SELECT setCode FROM cards WHERE name = 'Ancestor''s Chosen';"
+        },
+        {
+            "user": "What are the available translations for it?",
+            "response": "SELECT translation, language FROM set_translations WHERE setCode IN (SELECT setCode FROM cards WHERE name = 'Ancestor''s Chosen');"
+        },
+        {
+            "user": "What is its Italian translation?",
+            "response": "SELECT translation FROM set_translations WHERE setCode IN (SELECT setCode FROM cards WHERE name = 'Ancestor''s Chosen') AND language = 'Italian';"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the highest reputation score among all users?",
+            "response": "SELECT MAX(Reputation) FROM users;"
+        },
+        {
+            "user": "Which users have that score?",
+            "response": "SELECT Id FROM users WHERE Reputation = (SELECT MAX(Reputation) FROM users);"
+        },
+        {
+            "user": "How old are they?",
+            "response": "SELECT Age FROM users WHERE Reputation = (SELECT MAX(Reputation) FROM users);"
+        }
+    ]
+}

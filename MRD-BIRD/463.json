@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which set codes include the card named 'Angel of Mercy'?",
+            "response": "SELECT setCode FROM cards WHERE name = 'Angel of Mercy';"
+        },
+        {
+            "user": "What translations exist for them?",
+            "response": "SELECT translation FROM set_translations WHERE setCode IN (SELECT setCode FROM cards WHERE name = 'Angel of Mercy') AND translation IS NOT NULL;"
+        },
+        {
+            "user": "How many unique translations are there for them?",
+            "response": "SELECT COUNT(DISTINCT translation) FROM set_translations WHERE setCode IN (SELECT setCode FROM cards WHERE name = 'Angel of Mercy') AND translation IS NOT NULL;"
+        }
+    ]
+}

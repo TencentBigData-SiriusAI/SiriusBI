@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the average difference between K-12 enrollment and 5-17 enrollment for schools that are locally funded?",
+            "response": "WITH AvgDifference AS (\n    SELECT AVG(T1.`Enrollment (K-12)` - T1.`Enrollment (Ages 5-17)`) AS avg_diff\n    FROM frpm AS T1\n    INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode\n    WHERE T2.FundingType = 'Locally funded'\n)\nSELECT avg_diff FROM AvgDifference;"
+        },
+        {
+            "user": "Show me all of those schools with their names, DOC types, and calculated enrollment differences between K-12 and 5-17 age groups.",
+            "response": "SELECT \n    T2.School,\n    T2.DOCType,\n    (T1.`Enrollment (K-12)` - T1.`Enrollment (Ages 5-17)`) AS enrollment_diff\nFROM frpm AS T1\nINNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode\nWHERE T2.FundingType = 'Locally funded';"
+        },
+        {
+            "user": "Which of those schools have an enrollment difference greater than the average? Include their names and DOC types.",
+            "response": "SELECT \n    T2.School,\n    T2.DOCType\nFROM frpm AS T1\nINNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode\nWHERE T2.FundingType = 'Locally funded'\nAND (T1.`Enrollment (K-12)` - T1.`Enrollment (Ages 5-17)`) > (\n    SELECT AVG(T3.`Enrollment (K-12)` - T3.`Enrollment (Ages 5-17)`)\n    FROM frpm AS T3\n    INNER JOIN schools AS T4 ON T3.CDSCode = T4.CDSCode\n    WHERE T4.FundingType = 'Locally funded'\n);"
+        }
+    ]
+}

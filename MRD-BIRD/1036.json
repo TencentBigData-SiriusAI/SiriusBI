@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the average build-up play passing value for teams in the year 2012?",
+            "response": "SELECT CAST(SUM(t2.buildUpPlayPassing) AS REAL) / COUNT(t1.id) AS average_passing FROM Team AS t1 INNER JOIN Team_Attributes AS t2 ON t1.team_api_id = t2.team_api_id WHERE STRFTIME('%Y', t2.date) = '2012';"
+        },
+        {
+            "user": "Which teams have those statistics in 2012?",
+            "response": "SELECT t4.team_long_name, t3.buildUpPlayPassing FROM Team_Attributes AS t3 INNER JOIN Team AS t4 ON t3.team_api_id = t4.team_api_id WHERE STRFTIME('%Y', t3.date) = '2012';"
+        },
+        {
+            "user": "Now, list the long names of teams with build-up play passing above that average for 2012.",
+            "response": "SELECT DISTINCT t4.team_long_name FROM Team_Attributes AS t3 INNER JOIN Team AS t4 ON t3.team_api_id = t4.team_api_id WHERE STRFTIME('%Y', t3.date) = '2012' AND t3.buildUpPlayPassing > ( SELECT CAST(SUM(t2.buildUpPlayPassing) AS REAL) / COUNT(t1.id) FROM Team AS t1 INNER JOIN Team_Attributes AS t2 ON t1.team_api_id = t2.team_api_id WHERE STRFTIME('%Y', t2.date) = '2012' );"
+        }
+    ]
+}

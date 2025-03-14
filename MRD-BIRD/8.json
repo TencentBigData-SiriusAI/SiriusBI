@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "List all schools' CDS codes along with their FRPM counts for K-12 students, ordered from highest to lowest.",
+            "response": "SELECT CDSCode, `FRPM Count (K-12)` FROM frpm ORDER BY `FRPM Count (K-12)` DESC;"
+        },
+        {
+            "user": "What is the CDS code of the top school?",
+            "response": "SELECT CDSCode FROM frpm ORDER BY `FRPM Count (K-12)` DESC LIMIT 1;"
+        },
+        {
+            "user": "Well, how many students took the SAT at that school?",
+            "response": "SELECT NumTstTakr FROM satscores WHERE cds = (SELECT CDSCode FROM frpm ORDER BY `FRPM Count (K-12)` DESC LIMIT 1);"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which gas stations have the segment 'Value for money'?",
+            "response": "SELECT GasStationID, Country FROM gasstations WHERE Segment = 'Value for money';"
+        },
+        {
+            "user": "How many of them are there in each country?",
+            "response": "SELECT Country, COUNT(GasStationID) AS Total FROM gasstations WHERE Segment = 'Value for money' GROUP BY Country;"
+        },
+        {
+            "user": "Which country has the highest number of them?",
+            "response": "SELECT Country, COUNT(GasStationID) AS Total FROM gasstations WHERE Segment = 'Value for money' GROUP BY Country ORDER BY Total DESC LIMIT 1;"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which races were held in the year 2017?",
+            "response": "SELECT name FROM races WHERE year = 2017;"
+        },
+        {
+            "user": "Were any of them also held in the year 2000?",
+            "response": "SELECT name FROM races WHERE year = 2000 AND name IN (SELECT name FROM races WHERE year = 2017);"
+        },
+        {
+            "user": "Now, list those from 2017 that were not hosted in 2000.",
+            "response": "SELECT name FROM races WHERE year = 2017 AND name NOT IN (SELECT name FROM races WHERE year = 2000);"
+        }
+    ]
+}

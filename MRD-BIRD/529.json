@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which set codes have translations available in Korean?",
+            "response": "SELECT setCode FROM set_translations WHERE language = 'Korean';"
+        },
+        {
+            "user": "Which of those do not have Japanese translations?",
+            "response": "SELECT setCode FROM set_translations WHERE language = 'Korean' AND setCode NOT IN (SELECT setCode FROM set_translations WHERE language = 'Japanese');"
+        },
+        {
+            "user": "What are the names of those set codes?",
+            "response": "SELECT name FROM sets WHERE code IN (SELECT setCode FROM set_translations WHERE language = 'Korean' AND setCode NOT IN (SELECT setCode FROM set_translations WHERE language = 'Japanese'));"
+        }
+    ]
+}

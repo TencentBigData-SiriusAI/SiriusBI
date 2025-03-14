@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the maximum budget amount allocated for the 'Food' category?",
+            "response": "SELECT MAX(amount) FROM budget WHERE category = 'Food';"
+        },
+        {
+            "user": "List all budgets in that category and their remaining amounts.",
+            "response": "SELECT amount, remaining FROM budget WHERE category = 'Food';"
+        },
+        {
+            "user": "What is the remaining amount for that budget?",
+            "response": "SELECT remaining FROM budget WHERE category = 'Food' AND amount = (SELECT MAX(amount) FROM budget WHERE category = 'Food');"
+        }
+    ]
+}

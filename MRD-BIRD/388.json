@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which cards belong to the set with code '10E'?",
+            "response": "SELECT id FROM cards WHERE setCode = '10E';"
+        },
+        {
+            "user": "From those, which have a converted mana cost of 5?",
+            "response": "SELECT id FROM cards WHERE setCode = '10E' AND convertedManaCost = 5;"
+        },
+        {
+            "user": "Which of those have translations available, and what languages are they translated into?",
+            "response": "SELECT s.id, s.language FROM set_translations s WHERE s.setCode = '10E' AND s.id IN (SELECT id FROM cards WHERE setCode = '10E' AND convertedManaCost = 5);"
+        }
+    ]
+}

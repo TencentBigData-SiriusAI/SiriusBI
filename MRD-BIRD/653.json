@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the highest view count for any post?",
+            "response": "SELECT MAX(ViewCount) FROM posts;"
+        },
+        {
+            "user": "What is the user ID for that post?",
+            "response": "SELECT OwnerUserId FROM posts WHERE ViewCount = (SELECT MAX(ViewCount) FROM posts) LIMIT 1;"
+        },
+        {
+            "user": "What is their display name?",
+            "response": "SELECT DisplayName FROM users WHERE Id = (SELECT OwnerUserId FROM posts WHERE ViewCount = (SELECT MAX(ViewCount) FROM posts) LIMIT 1);"
+        }
+    ]
+}

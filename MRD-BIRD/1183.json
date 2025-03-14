@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which patients were diagnosed with SLE on 1997-01-27?",
+            "response": "SELECT ID FROM Examination WHERE `Examination Date` = '1997-01-27' AND Diagnosis = 'SLE';"
+        },
+        {
+            "user": "What was their first hospital visit date?",
+            "response": "SELECT ID, `First Date` FROM Patient WHERE ID IN (SELECT ID FROM Examination WHERE `Examination Date` = '1997-01-27' AND Diagnosis = 'SLE');"
+        },
+        {
+            "user": "What was their original diagnosis recorded on that date?",
+            "response": "SELECT T1.Diagnosis FROM Patient AS T1 INNER JOIN Examination AS T2 ON T1.ID = T2.ID WHERE T1.ID IN (SELECT ID FROM Examination WHERE `Examination Date` = '1997-01-27' AND Diagnosis = 'SLE') AND T2.`Examination Date` = T1.`First Date`;"
+        }
+    ]
+}

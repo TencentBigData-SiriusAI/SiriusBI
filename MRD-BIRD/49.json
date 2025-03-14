@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which counties have closed schools and how many closed schools does each have?",
+            "response": "SELECT County, COUNT(School) AS ClosedSchoolsCount FROM schools WHERE StatusType = 'Closed' GROUP BY County ORDER BY ClosedSchoolsCount DESC;"
+        },
+        {
+            "user": "What is the name of the county with the highest number of them?",
+            "response": "SELECT County FROM schools WHERE StatusType = 'Closed' GROUP BY County ORDER BY COUNT(School) DESC LIMIT 1;"
+        },
+        {
+            "user": "Please provide the names and closure dates of all closed schools in that county.",
+            "response": "SELECT DISTINCT County, School, ClosedDate FROM schools WHERE County = (SELECT County FROM schools WHERE StatusType = 'Closed' GROUP BY County ORDER BY COUNT(School) DESC LIMIT 1) AND StatusType = 'Closed' AND School IS NOT NULL;"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the set code for the set named 'Mirrodin'?",
+            "response": "SELECT code FROM sets WHERE name = 'Mirrodin';"
+        },
+        {
+            "user": "What translations exist for it in any language?",
+            "response": "SELECT translation, language FROM set_translations WHERE setCode IN (SELECT code FROM sets WHERE name = 'Mirrodin');"
+        },
+        {
+            "user": "Now, show only the Simplified Chinese translation for it.",
+            "response": "SELECT translation FROM set_translations WHERE setCode IN (SELECT code FROM sets WHERE name = 'Mirrodin') AND language = 'Chinese Simplified';"
+        }
+    ]
+}

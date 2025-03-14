@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the set code for the set named 'World Championship Decks 2004'?",
+            "response": "SELECT code FROM sets WHERE name = 'World Championship Decks 2004';"
+        },
+        {
+            "user": "How many cards are there in it?",
+            "response": "SELECT COUNT(id) FROM cards WHERE setCode IN (SELECT code FROM sets WHERE name = 'World Championship Decks 2004');"
+        },
+        {
+            "user": "How many of them have a converted mana cost of 3?",
+            "response": "SELECT COUNT(id) FROM cards WHERE setCode IN (SELECT code FROM sets WHERE name = 'World Championship Decks 2004') AND convertedManaCost = 3;"
+        }
+    ]
+}

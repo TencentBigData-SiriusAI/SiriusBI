@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the highest score among all comments?",
+            "response": "SELECT MAX(Score) FROM comments;"
+        },
+        {
+            "user": "Provide their PostIds.",
+            "response": "SELECT PostId FROM comments WHERE Score = (SELECT MAX(Score) FROM comments);"
+        },
+        {
+            "user": "What are the titles of those posts?",
+            "response": "SELECT Title FROM posts WHERE Id IN (SELECT PostId FROM comments WHERE Score = (SELECT MAX(Score) FROM comments));"
+        }
+    ]
+}

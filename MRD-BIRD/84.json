@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What are the counts of each administrator's first name across all schools, ordered by frequency?",
+            "response": "SELECT AdmFName1, COUNT(*) AS name_count FROM schools GROUP BY AdmFName1 ORDER BY name_count DESC;"
+        },
+        {
+            "user": "Which two occur most frequently?",
+            "response": "WITH NameCounts AS (SELECT AdmFName1, COUNT(*) AS cnt FROM schools GROUP BY AdmFName1) SELECT AdmFName1 FROM NameCounts ORDER BY cnt DESC LIMIT 2;"
+        },
+        {
+            "user": "For those two names, list all distinct districts they are associated with.",
+            "response": "WITH TopNames AS (SELECT AdmFName1 FROM schools GROUP BY AdmFName1 ORDER BY COUNT(*) DESC LIMIT 2) SELECT DISTINCT s.AdmFName1, s.District FROM schools s INNER JOIN TopNames tn ON s.AdmFName1 = tn.AdmFName1;"
+        }
+    ]
+}

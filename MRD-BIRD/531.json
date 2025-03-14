@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What are the reputations of users Harlan and Jarrod Dixon?",
+            "response": "SELECT DisplayName, Reputation FROM users WHERE DisplayName IN ('Harlan', 'Jarrod Dixon');"
+        },
+        {
+            "user": "What is the highest reputation value between them?",
+            "response": "SELECT MAX(Reputation) AS MaxReputation FROM users WHERE DisplayName IN ('Harlan', 'Jarrod Dixon');"
+        },
+        {
+            "user": "Which user has that highest reputation?",
+            "response": "SELECT DisplayName FROM users WHERE DisplayName IN ('Harlan', 'Jarrod Dixon') AND Reputation = (SELECT MAX(Reputation) FROM users WHERE DisplayName IN ('Harlan', 'Jarrod Dixon'));"
+        }
+    ]
+}

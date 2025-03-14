@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which atom IDs are part of any chemical bond?",
+            "response": "SELECT DISTINCT atom_id FROM connected;"
+        },
+        {
+            "user": "What elements do they have?",
+            "response": "SELECT DISTINCT T1.element FROM atom AS T1 INNER JOIN connected AS T2 ON T1.atom_id = T2.atom_id;"
+        },
+        {
+            "user": "Now list elements that NEVER participate in it.",
+            "response": "SELECT DISTINCT element FROM atom WHERE element NOT IN (SELECT DISTINCT T1.element FROM atom AS T1 INNER JOIN connected AS T2 ON T1.atom_id = T2.atom_id);"
+        }
+    ]
+}

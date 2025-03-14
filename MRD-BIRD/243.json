@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which bonds include phosphorus atoms?",
+            "response": "SELECT DISTINCT T1.bond_id FROM connected AS T1 INNER JOIN atom AS T2 ON T1.atom_id = T2.atom_id WHERE T2.element = 'p';"
+        },
+        {
+            "user": "Which bonds include nitrogen atoms?",
+            "response": "SELECT DISTINCT T1.bond_id FROM connected AS T1 INNER JOIN atom AS T2 ON T1.atom_id = T2.atom_id WHERE T2.element = 'n';"
+        },
+        {
+            "user": "Which bonds include both?",
+            "response": "SELECT T1.bond_id FROM connected AS T1 INNER JOIN atom AS T2 ON T1.atom_id = T2.atom_id WHERE T1.bond_id IN ( SELECT T3.bond_id FROM connected AS T3 INNER JOIN atom AS T4 ON T3.atom_id = T4.atom_id WHERE T4.element = 'p' ) AND T2.element = 'n';"
+        }
+    ]
+}

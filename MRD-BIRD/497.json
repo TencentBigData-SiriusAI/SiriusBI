@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the set code for the set translated as 'Huiti\u00e8me \u00e9dition'?",
+            "response": "SELECT setCode FROM set_translations WHERE translation = 'Huiti\u00e8me \u00e9dition';"
+        },
+        {
+            "user": "What is the expansion type of that set?",
+            "response": "SELECT s.type FROM sets s INNER JOIN set_translations st ON s.code = st.setCode WHERE st.translation = 'Huiti\u00e8me \u00e9dition';"
+        },
+        {
+            "user": "Can you find the type without explicitly joining them?",
+            "response": "SELECT type FROM sets WHERE code IN (SELECT setCode FROM set_translations WHERE translation = 'Huiti\u00e8me \u00e9dition');"
+        }
+    ]
+}

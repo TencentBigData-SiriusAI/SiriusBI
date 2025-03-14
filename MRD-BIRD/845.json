@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "What is the average height of all superheroes?",
+            "response": "SELECT AVG(height_cm) FROM superhero;"
+        },
+        {
+            "user": "What is 80% of that?",
+            "response": "SELECT AVG(height_cm) * 0.8 AS threshold FROM superhero;"
+        },
+        {
+            "user": "Which superheroes have a height greater than that threshold?",
+            "response": "SELECT id, superhero_name FROM superhero WHERE height_cm > (SELECT AVG(height_cm) * 0.8 FROM superhero);"
+        },
+        {
+            "user": "What are the powers of these superheroes?",
+            "response": "SELECT DISTINCT T3.power_name FROM superhero T1 INNER JOIN hero_power T2 ON T1.id = T2.hero_id INNER JOIN superpower T3 ON T2.power_id = T3.id WHERE T1.height_cm > (SELECT AVG(height_cm) * 0.8 FROM superhero);"
+        }
+    ]
+}

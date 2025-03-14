@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "Which patients have normal uric acid (UA) levels based on their sex?",
+            "response": "SELECT T1.ID, T2.UA FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE (T1.SEX = 'F' AND T2.UA < 6.5) OR (T1.SEX = 'M' AND T2.UA < 8.0);"
+        },
+        {
+            "user": "What is the most recent laboratory examination date across them?",
+            "response": "SELECT MAX(Date) FROM Laboratory;"
+        },
+        {
+            "user": "Which of those with normal UA had their tests on that date?",
+            "response": "SELECT T1.ID, T2.UA FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE ((T1.SEX = 'F' AND T2.UA < 6.5) OR (T1.SEX = 'M' AND T2.UA < 8.0)) AND T2.Date = (SELECT MAX(Date) FROM Laboratory);"
+        },
+        {
+            "user": "What is the average UA index for them?",
+            "response": "SELECT AVG(T2.UA) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE ((T1.SEX = 'F' AND T2.UA < 6.5) OR (T1.SEX = 'M' AND T2.UA < 8.0)) AND T2.Date = (SELECT MAX(Date) FROM Laboratory);"
+        }
+    ]
+}

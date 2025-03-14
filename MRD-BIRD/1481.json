@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the minimum consumption recorded in the year 2013?",
+            "response": "SELECT MIN(Consumption) FROM yearmonth WHERE Date BETWEEN 201301 AND 201312;"
+        },
+        {
+            "user": "Which customers using CZK currency had that consumption?",
+            "response": "SELECT T1.CustomerID FROM customers T1 INNER JOIN yearmonth T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Currency = 'CZK' AND T2.Consumption = (SELECT MIN(Consumption) FROM yearmonth WHERE Date BETWEEN 201301 AND 201312) AND T2.Date BETWEEN 201301 AND 201312;"
+        },
+        {
+            "user": "What is the difference in the annual average consumption of those customers between SME and LAM, LAM and KAM, and KAM and SME?",
+            "response": "SELECT \n    CAST(SUM(IIF(T1.Segment = 'SME', T2.Consumption, 0)) AS REAL)/COUNT(T1.CustomerID) - CAST(SUM(IIF(T1.Segment = 'LAM', T2.Consumption, 0)) AS REAL)/COUNT(T1.CustomerID) AS SME_LAM_Diff,\n    CAST(SUM(IIF(T1.Segment = 'LAM', T2.Consumption, 0)) AS REAL)/COUNT(T1.CustomerID) - CAST(SUM(IIF(T1.Segment = 'KAM', T2.Consumption, 0)) AS REAL)/COUNT(T1.CustomerID) AS LAM_KAM_Diff,\n    CAST(SUM(IIF(T1.Segment = 'KAM', T2.Consumption, 0)) AS REAL)/COUNT(T1.CustomerID) - CAST(SUM(IIF(T1.Segment = 'SME', T2.Consumption, 0)) AS REAL)/COUNT(T1.CustomerID) AS KAM_SME_Diff\nFROM customers T1\nINNER JOIN yearmonth T2 ON T1.CustomerID = T2.CustomerID\nWHERE T1.Currency = 'CZK'\nAND T2.Consumption = (SELECT MIN(Consumption) FROM yearmonth WHERE Date BETWEEN 201301 AND 201312)\nAND T2.Date BETWEEN 201301 AND 201312;"
+        }
+    ]
+}

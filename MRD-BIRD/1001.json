@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "What is the race ID for the race held at Marina Bay Street Circuit in 2008?",
+            "response": "SELECT raceId FROM races WHERE year = 2008 AND circuitId = (SELECT circuitId FROM circuits WHERE name = 'Marina Bay Street Circuit');"
+        },
+        {
+            "user": "Which drivers participated in the third qualifying session (Q3) for that race?",
+            "response": "SELECT driverId, q3 FROM qualifying WHERE raceId = (SELECT raceId FROM races WHERE year = 2008 AND circuitId = (SELECT circuitId FROM circuits WHERE name = 'Marina Bay Street Circuit')) AND q3 IS NOT NULL;"
+        },
+        {
+            "user": "How do we determine the fastest driver based on those lap times?",
+            "response": "SELECT driverId, q3 FROM qualifying WHERE raceId = (SELECT raceId FROM races WHERE year = 2008 AND circuitId = (SELECT circuitId FROM circuits WHERE name = 'Marina Bay Street Circuit')) AND q3 IS NOT NULL ORDER BY (CAST(SUBSTR(q3, 1, INSTR(q3, ':') - 1) AS INTEGER) * 60 + CAST(SUBSTR(q3, INSTR(q3, ':') + 1, 2) AS REAL) + CAST(SUBSTR(q3, INSTR(q3, '.') + 1) AS REAL) / 1000) ASC;"
+        },
+        {
+            "user": "What is the full name of the driver with the fastest time?",
+            "response": "SELECT d.forename, d.surname FROM drivers d JOIN qualifying q ON d.driverId = q.driverId WHERE q.raceId = (SELECT raceId FROM races WHERE year = 2008 AND circuitId = (SELECT circuitId FROM circuits WHERE name = 'Marina Bay Street Circuit')) AND q.q3 IS NOT NULL ORDER BY (CAST(SUBSTR(q.q3, 1, INSTR(q.q3, ':') - 1) AS INTEGER) * 60 + CAST(SUBSTR(q.q3, INSTR(q.q3, ':') + 1, 2) AS REAL) + CAST(SUBSTR(q.q3, INSTR(q.q3, '.') + 1) AS REAL) / 1000) ASC LIMIT 1;"
+        }
+    ]
+}

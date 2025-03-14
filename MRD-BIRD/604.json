@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "Which users have created more than 10 posts?",
+            "response": "SELECT OwnerUserId FROM posts GROUP BY OwnerUserId HAVING COUNT(*) > 10;"
+        },
+        {
+            "user": "What is the average UpVotes for them?",
+            "response": "SELECT AVG(UpVotes) FROM users WHERE Id IN (SELECT OwnerUserId FROM posts GROUP BY OwnerUserId HAVING COUNT(*) > 10);"
+        },
+        {
+            "user": "What is the average Age for them?",
+            "response": "SELECT AVG(Age) FROM users WHERE Id IN (SELECT OwnerUserId FROM posts GROUP BY OwnerUserId HAVING COUNT(*) > 10);"
+        },
+        {
+            "user": "Now, what's the average of both for them?",
+            "response": "SELECT AVG(T1.UpVotes), AVG(T1.Age) FROM users AS T1 INNER JOIN (SELECT OwnerUserId FROM posts GROUP BY OwnerUserId HAVING COUNT(*) > 10) AS T2 ON T1.Id = T2.OwnerUserId;"
+        }
+    ]
+}

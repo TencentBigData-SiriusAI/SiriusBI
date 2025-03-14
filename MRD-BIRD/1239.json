@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "Which patients have laboratory results with hematocrit levels exceeding 52?",
+            "response": "SELECT ID FROM Laboratory WHERE HCT >= 52;"
+        },
+        {
+            "user": "Which patients have two or more instances of that condition?",
+            "response": "SELECT ID FROM Laboratory WHERE HCT >= 52 GROUP BY ID HAVING COUNT(ID) >= 2;"
+        },
+        {
+            "user": "What is the current age of those patients?",
+            "response": "SELECT DISTINCT T1.ID, CAST(SUBSTR(T1.Birthday, 1, 4) AS INTEGER) - CAST(STRFTIME('%Y', CURRENT_TIMESTAMP) AS INTEGER) AS age FROM Patient T1 WHERE T1.ID IN (SELECT ID FROM Laboratory WHERE HCT >= 52 GROUP BY ID HAVING COUNT(ID) >= 2);"
+        },
+        {
+            "user": "Combine those requirements into a final list showing ID and calculated age.",
+            "response": "SELECT DISTINCT T1.ID, STRFTIME('%Y', CURRENT_TIMESTAMP) - STRFTIME('%Y', T1.Birthday) FROM Patient AS T1 WHERE T1.ID IN (SELECT ID FROM Laboratory WHERE HCT >= 52 GROUP BY ID HAVING COUNT(ID) >= 2);"
+        }
+    ]
+}

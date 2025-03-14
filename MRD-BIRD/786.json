@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which heroes have the 'Strength' attribute?",
+            "response": "SELECT HA.hero_id FROM hero_attribute HA INNER JOIN attribute A ON HA.attribute_id = A.id WHERE A.attribute_name = 'Strength';"
+        },
+        {
+            "user": "What is the highest attribute value among them?",
+            "response": "SELECT MAX(HA.attribute_value) FROM hero_attribute HA INNER JOIN attribute A ON HA.attribute_id = A.id WHERE A.attribute_name = 'Strength';"
+        },
+        {
+            "user": "Now, how many heroes have that highest value in their 'Strength' attribute?",
+            "response": "SELECT COUNT(HA.hero_id) FROM hero_attribute HA INNER JOIN attribute A ON HA.attribute_id = A.id WHERE A.attribute_name = 'Strength' AND HA.attribute_value = (SELECT MAX(HA2.attribute_value) FROM hero_attribute HA2 INNER JOIN attribute A2 ON HA2.attribute_id = A2.id WHERE A2.attribute_name = 'Strength');"
+        }
+    ]
+}

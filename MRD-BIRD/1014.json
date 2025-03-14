@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "What are the fastest lap times recorded in races held in Italy?",
+            "response": "SELECT T1.FastestLapTime FROM results AS T1 INNER JOIN races AS T2 ON T1.raceId = T2.raceId INNER JOIN circuits AS T3 ON T2.circuitId = T3.circuitId WHERE T3.country = 'Italy' AND T1.FastestLapTime IS NOT NULL;"
+        },
+        {
+            "user": "How can we convert them into total seconds for comparison?",
+            "response": "WITH fastest_lap_times AS (SELECT T1.FastestLapTime, (CAST(SUBSTR(T1.FastestLapTime, 1, INSTR(T1.FastestLapTime, ':') - 1) AS REAL) * 60) + CAST(SUBSTR(T1.FastestLapTime, INSTR(T1.FastestLapTime, ':') + 1, 2) AS REAL) + (CAST(SUBSTR(T1.FastestLapTime, INSTR(T1.FastestLapTime, '.') + 1) AS REAL) / 1000) AS time_in_seconds FROM results AS T1 INNER JOIN races AS T2 ON T1.raceId = T2.raceId INNER JOIN circuits AS T3 ON T2.circuitId = T3.circuitId WHERE T3.country = 'Italy' AND T1.FastestLapTime IS NOT NULL) SELECT time_in_seconds FROM fastest_lap_times;"
+        },
+        {
+            "user": "What is the minimum of these in seconds?",
+            "response": "WITH fastest_lap_times AS (SELECT (CAST(SUBSTR(T1.FastestLapTime, 1, INSTR(T1.FastestLapTime, ':') - 1) AS REAL) * 60) + CAST(SUBSTR(T1.FastestLapTime, INSTR(T1.FastestLapTime, ':') + 1, 2) AS REAL) + (CAST(SUBSTR(T1.FastestLapTime, INSTR(T1.FastestLapTime, '.') + 1) AS REAL) / 1000) AS time_in_seconds FROM results AS T1 INNER JOIN races AS T2 ON T1.raceId = T2.raceId INNER JOIN circuits AS T3 ON T2.circuitId = T3.circuitId WHERE T3.country = 'Italy' AND T1.FastestLapTime IS NOT NULL) SELECT MIN(time_in_seconds) AS min_time FROM fastest_lap_times;"
+        },
+        {
+            "user": "Now, show me the actual lap record(s) corresponding to that minimum time.",
+            "response": "WITH fastest_lap_times AS (SELECT T1.FastestLapTime, (CAST(SUBSTR(T1.FastestLapTime, 1, INSTR(T1.FastestLapTime, ':') - 1) AS REAL) * 60) + CAST(SUBSTR(T1.FastestLapTime, INSTR(T1.FastestLapTime, ':') + 1, 2) AS REAL) + (CAST(SUBSTR(T1.FastestLapTime, INSTR(T1.FastestLapTime, '.') + 1) AS REAL) / 1000) AS time_in_seconds FROM results AS T1 INNER JOIN races AS T2 ON T1.raceId = T2.raceId INNER JOIN circuits AS T3 ON T2.circuitId = T3.circuitId WHERE T3.country = 'Italy' AND T1.FastestLapTime IS NOT NULL) SELECT FastestLapTime FROM fastest_lap_times WHERE time_in_seconds = (SELECT MIN(time_in_seconds) FROM fastest_lap_times) LIMIT 1;"
+        }
+    ]
+}

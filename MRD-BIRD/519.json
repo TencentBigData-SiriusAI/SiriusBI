@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Is there a set named 'Battlebond' in the sets table?",
+            "response": "SELECT name FROM sets WHERE name = 'Battlebond';"
+        },
+        {
+            "user": "What's the id of that set?",
+            "response": "SELECT id FROM sets WHERE name = 'Battlebond';"
+        },
+        {
+            "user": "Which languages are associated with it?",
+            "response": "SELECT language FROM set_translations WHERE id IN (SELECT id FROM sets WHERE name = 'Battlebond');"
+        }
+    ]
+}

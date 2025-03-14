@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Is there a player named Alexis Blin in the database?",
+            "response": "SELECT player_name FROM Player WHERE player_name = 'Alexis Blin';"
+        },
+        {
+            "user": "What is his API ID?",
+            "response": "SELECT player_api_id FROM Player WHERE player_name = 'Alexis Blin';"
+        },
+        {
+            "user": "What are his sprint speed, agility, and acceleration scores?",
+            "response": "SELECT sprint_speed, agility, acceleration FROM Player_Attributes WHERE player_api_id IN (SELECT player_api_id FROM Player WHERE player_name = 'Alexis Blin');"
+        }
+    ]
+}

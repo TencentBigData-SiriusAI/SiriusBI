@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Who is the top spending customer based on Consumption?",
+            "response": "SELECT CustomerID FROM yearmonth ORDER BY Consumption DESC LIMIT 1;"
+        },
+        {
+            "user": "What is the average price per single item purchased by them?",
+            "response": "SELECT SUM(Price / Amount) AS avg_price FROM transactions_1k WHERE CustomerID = (SELECT CustomerID FROM yearmonth ORDER BY Consumption DESC LIMIT 1);"
+        },
+        {
+            "user": "What currency does that customer use?",
+            "response": "SELECT Currency FROM customers WHERE CustomerID = (SELECT CustomerID FROM yearmonth ORDER BY Consumption DESC LIMIT 1);"
+        }
+    ]
+}

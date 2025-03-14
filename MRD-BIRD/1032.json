@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which leagues have matches and how many matches does each have?",
+            "response": "SELECT league_id, COUNT(id) AS matches_count FROM Match GROUP BY league_id;"
+        },
+        {
+            "user": "What is the highest number of matches played in any of them?",
+            "response": "SELECT MAX(matches_count) AS max_matches FROM (SELECT league_id, COUNT(id) AS matches_count FROM Match GROUP BY league_id) AS subquery;"
+        },
+        {
+            "user": "What is the name of that league and how many matches were played?",
+            "response": "SELECT l.name, sub.matches_count FROM (SELECT league_id, COUNT(id) AS matches_count FROM Match GROUP BY league_id) AS sub JOIN League l ON sub.league_id = l.id WHERE sub.matches_count = (SELECT MAX(matches_count) FROM (SELECT league_id, COUNT(id) AS matches_count FROM Match GROUP BY league_id) AS subquery);"
+        }
+    ]
+}

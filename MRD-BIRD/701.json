@@ -1,0 +1,24 @@
+{
+    "turns": [
+        {
+            "user": "What is the highest reputation score among all users?",
+            "response": "SELECT MAX(Reputation) AS max_reputation FROM users;"
+        },
+        {
+            "user": "Which users have that maximum reputation?",
+            "response": "SELECT Id FROM users WHERE Reputation = (SELECT MAX(Reputation) FROM users);"
+        },
+        {
+            "user": "How many posts have they created?",
+            "response": "SELECT COUNT(*) AS total_posts FROM posts WHERE OwnerUserId IN (SELECT Id FROM users WHERE Reputation = (SELECT MAX(Reputation) FROM users));"
+        },
+        {
+            "user": "How many of them have a score greater than 50?",
+            "response": "SELECT COUNT(*) AS high_score_posts FROM posts WHERE OwnerUserId IN (SELECT Id FROM users WHERE Reputation = (SELECT MAX(Reputation) FROM users)) AND Score > 50;"
+        },
+        {
+            "user": "What is the percentage of high-scoring posts among all their posts?",
+            "response": "SELECT CAST(SUM(CASE WHEN T2.Score > 50 THEN 1 ELSE 0 END) AS REAL) * 100.0 / COUNT(T1.Id) AS percentage FROM users T1 INNER JOIN posts T2 ON T1.Id = T2.OwnerUserId WHERE T1.Reputation = (SELECT MAX(Reputation) FROM users);"
+        }
+    ]
+}

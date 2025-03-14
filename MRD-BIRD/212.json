@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which elements are present in non-carcinogenic molecules?",
+            "response": "SELECT DISTINCT T1.element FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T2.label = '-';"
+        },
+        {
+            "user": "How many distinct molecules does each element appear in?",
+            "response": "SELECT T1.element, COUNT(DISTINCT T1.molecule_id) AS molecule_count FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T2.label = '-' GROUP BY T1.element;"
+        },
+        {
+            "user": "Which element has the smallest number of them?",
+            "response": "SELECT element FROM (SELECT T1.element, COUNT(DISTINCT T1.molecule_id) AS count FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T2.label = '-' GROUP BY T1.element) AS T ORDER BY count ASC LIMIT 1;"
+        }
+    ]
+}

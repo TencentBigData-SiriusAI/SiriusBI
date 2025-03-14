@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Is there a league named 'Poland Ekstraklasa' in the database?",
+            "response": "SELECT name FROM League WHERE name = 'Poland Ekstraklasa';"
+        },
+        {
+            "user": "Which country ID is associated with it?",
+            "response": "SELECT country_id FROM League WHERE name = 'Poland Ekstraklasa';"
+        },
+        {
+            "user": "What is the name of the country corresponding to it?",
+            "response": "SELECT name FROM Country WHERE id IN (SELECT country_id FROM League WHERE name = 'Poland Ekstraklasa');"
+        }
+    ]
+}

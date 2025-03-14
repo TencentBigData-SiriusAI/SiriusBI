@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "What is the total number of cards in the foreign data?",
+            "response": "SELECT COUNT(*) AS total_cards FROM foreign_data;"
+        },
+        {
+            "user": "How many of them are in Spanish?",
+            "response": "SELECT COUNT(*) AS spanish_cards FROM foreign_data WHERE language = 'Spanish';"
+        },
+        {
+            "user": "What percentage of those are Spanish?",
+            "response": "SELECT (CAST(SUM(CASE WHEN language = 'Spanish' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*)) AS percentage FROM foreign_data;"
+        },
+        {
+            "user": "List the names of those Spanish cards.",
+            "response": "SELECT name FROM foreign_data WHERE language = 'Spanish';"
+        }
+    ]
+}

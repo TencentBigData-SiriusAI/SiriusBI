@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which patients were diagnosed with SLE on February 19, 1994?",
+            "response": "SELECT ID FROM Patient WHERE Diagnosis = 'SLE' AND Description = '1994-02-19';"
+        },
+        {
+            "user": "What examinations did they have on November 12, 1993?",
+            "response": "SELECT * FROM Examination WHERE ID IN (SELECT ID FROM Patient WHERE Diagnosis = 'SLE' AND Description = '1994-02-19') AND `Examination Date` = '1993-11-12';"
+        },
+        {
+            "user": "What were their anti-Cardiolipin antibody (IgA, IgG, IgM) levels from those?",
+            "response": "SELECT `aCL IgA`, `aCL IgG`, `aCL IgM` FROM Examination WHERE ID IN (SELECT ID FROM Patient WHERE Diagnosis = 'SLE' AND Description = '1994-02-19') AND `Examination Date` = '1993-11-12';"
+        }
+    ]
+}

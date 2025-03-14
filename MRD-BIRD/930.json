@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the driver ID for Lewis Hamilton?",
+            "response": "SELECT driverId FROM drivers WHERE forename = 'Lewis' AND surname = 'Hamilton';"
+        },
+        {
+            "user": "In which races did he achieve rank 1?",
+            "response": "SELECT raceId FROM results WHERE driverId = (SELECT driverId FROM drivers WHERE forename = 'Lewis' AND surname = 'Hamilton') AND rank = 1;"
+        },
+        {
+            "user": "What are the names of those races?",
+            "response": "SELECT name FROM races WHERE raceId IN (SELECT raceId FROM results WHERE driverId = (SELECT driverId FROM drivers WHERE forename = 'Lewis' AND surname = 'Hamilton') AND rank = 1);"
+        }
+    ]
+}

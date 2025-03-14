@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "Which cards are of type 'Creature' with a normal layout?",
+            "response": "SELECT uuid FROM cards WHERE types = 'Creature' AND layout = 'normal';"
+        },
+        {
+            "user": "Among those, which were created by him?",
+            "response": "SELECT uuid FROM cards WHERE types = 'Creature' AND layout = 'normal' AND artist = 'Matthew D. Wilson';"
+        },
+        {
+            "user": "From those, filter cards with a black border color.",
+            "response": "SELECT uuid FROM cards WHERE types = 'Creature' AND layout = 'normal' AND artist = 'Matthew D. Wilson' AND borderColor = 'black';"
+        },
+        {
+            "user": "What are their French names in the foreign_data table?",
+            "response": "SELECT name FROM foreign_data WHERE uuid IN (SELECT uuid FROM cards WHERE types = 'Creature' AND layout = 'normal' AND artist = 'Matthew D. Wilson' AND borderColor = 'black') AND language = 'French';"
+        }
+    ]
+}

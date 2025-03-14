@@ -1,0 +1,24 @@
+{
+    "turns": [
+        {
+            "user": "Which group (tallest or shortest) has the highest average finishing rate?",
+            "response": "SELECT A FROM ( SELECT AVG(T2.finishing) result, 'Max' A FROM Player AS T1 INNER JOIN Player_Attributes AS T2 ON T1.player_api_id = T2.player_api_id WHERE T1.height = (SELECT MAX(height) FROM Player) UNION SELECT AVG(T2.finishing) result, 'Min' A FROM Player AS T1 INNER JOIN Player_Attributes AS T2 ON T1.player_api_id = T2.player_api_id WHERE T1.height = (SELECT MIN(height) FROM Player) ) ORDER BY result DESC LIMIT 1;"
+        },
+        {
+            "user": "What is the maximum height of those players?",
+            "response": "SELECT MAX(height) FROM Player;"
+        },
+        {
+            "user": "What is the minimum height?",
+            "response": "SELECT MIN(height) FROM Player;"
+        },
+        {
+            "user": "What is the average finishing rate for those players?",
+            "response": "SELECT AVG(T2.finishing) FROM Player AS T1 INNER JOIN Player_Attributes AS T2 ON T1.player_api_id = T2.player_api_id WHERE T1.height = (SELECT MAX(height) FROM Player);"
+        },
+        {
+            "user": "How about the minimum?",
+            "response": "SELECT AVG(T2.finishing) FROM Player AS T1 INNER JOIN Player_Attributes AS T2 ON T1.player_api_id = T2.player_api_id WHERE T1.height = (SELECT MIN(height) FROM Player);"
+        }
+    ]
+}

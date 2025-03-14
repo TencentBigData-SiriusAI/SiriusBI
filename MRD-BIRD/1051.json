@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the highest potential score among all football players?",
+            "response": "SELECT MAX(potential) AS highest_potential FROM Player_Attributes;"
+        },
+        {
+            "user": "Which players have that score?",
+            "response": "SELECT t1.player_name FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t2.potential = (SELECT MAX(potential) FROM Player_Attributes);"
+        },
+        {
+            "user": "Can you list their names only once without duplicates?",
+            "response": "SELECT DISTINCT(t1.player_name) FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t2.potential = (SELECT MAX(potential) FROM Player_Attributes);"
+        }
+    ]
+}

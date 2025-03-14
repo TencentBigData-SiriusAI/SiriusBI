@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which posts have a view count between 100 and 150?",
+            "response": "SELECT Id FROM posts WHERE ViewCount BETWEEN 100 AND 150;"
+        },
+        {
+            "user": "What comments are associated with them?",
+            "response": "SELECT Text, Score FROM comments WHERE PostId IN (SELECT Id FROM posts WHERE ViewCount BETWEEN 100 AND 150);"
+        },
+        {
+            "user": "Which of those comments has the highest score?",
+            "response": "SELECT Text FROM comments WHERE PostId IN (SELECT Id FROM posts WHERE ViewCount BETWEEN 100 AND 150) ORDER BY Score DESC LIMIT 1;"
+        }
+    ]
+}

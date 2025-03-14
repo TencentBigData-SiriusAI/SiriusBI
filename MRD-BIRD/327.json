@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which molecules are marked as non-carcinogenic?",
+            "response": "SELECT molecule_id FROM molecule WHERE label = '-';"
+        },
+        {
+            "user": "How many atoms does each of them contain?",
+            "response": "SELECT m.molecule_id, COUNT(a.atom_id) AS atom_count FROM molecule m JOIN atom a ON m.molecule_id = a.molecule_id WHERE m.label = '-' GROUP BY m.molecule_id;"
+        },
+        {
+            "user": "Which of them have more than 5 atoms?",
+            "response": "SELECT m.molecule_id FROM molecule m JOIN atom a ON m.molecule_id = a.molecule_id WHERE m.label = '-' GROUP BY m.molecule_id HAVING COUNT(a.atom_id) > 5;"
+        }
+    ]
+}

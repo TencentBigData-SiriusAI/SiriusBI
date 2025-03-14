@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which molecules are classified as carcinogenic?",
+            "response": "SELECT molecule_id FROM molecule WHERE label = '+';"
+        },
+        {
+            "user": "How many atoms does each of them contain?",
+            "response": "SELECT a.molecule_id, COUNT(a.atom_id) AS atom_count FROM atom a INNER JOIN molecule m ON a.molecule_id = m.molecule_id WHERE m.label = '+' GROUP BY a.molecule_id;"
+        },
+        {
+            "user": "Which one has the highest number of atoms?",
+            "response": "SELECT molecule_id FROM (SELECT a.molecule_id, COUNT(a.atom_id) AS atom_count FROM atom a INNER JOIN molecule m ON a.molecule_id = m.molecule_id WHERE m.label = '+' GROUP BY a.molecule_id ORDER BY atom_count DESC LIMIT 1) t;"
+        }
+    ]
+}

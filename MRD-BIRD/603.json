@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "Which PostIds have been edited by user ID 686?",
+            "response": "SELECT PostId FROM postHistory WHERE UserId = 686;"
+        },
+        {
+            "user": "Which of them occurred in 2011?",
+            "response": "SELECT PostId FROM postHistory WHERE UserId = 686 AND STRFTIME('%Y', CreationDate) = '2011';"
+        },
+        {
+            "user": "What are the FavoriteCounts for the posts associated with them?",
+            "response": "SELECT FavoriteCount FROM posts WHERE Id IN (SELECT PostId FROM postHistory WHERE UserId = 686 AND STRFTIME('%Y', CreationDate) = '2011');"
+        },
+        {
+            "user": "Now, what is the sum of distinct FavoriteCounts from them?",
+            "response": "SELECT SUM(DISTINCT FavoriteCount) FROM posts WHERE Id IN (SELECT PostId FROM postHistory WHERE UserId = 686 AND STRFTIME('%Y', CreationDate) = '2011');"
+        }
+    ]
+}

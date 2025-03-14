@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "What is the set code for the 'Hour of Devastation' set?",
+            "response": "SELECT code FROM sets WHERE name = 'Hour of Devastation';"
+        },
+        {
+            "user": "List the names of all cards in that set.",
+            "response": "SELECT name FROM cards WHERE setCode IN (SELECT code FROM sets WHERE name = 'Hour of Devastation');"
+        },
+        {
+            "user": "What are the legal formats and their statuses for them?",
+            "response": "SELECT T2.name, T1.format, T1.status FROM legalities AS T1 INNER JOIN cards AS T2 ON T1.uuid = T2.uuid WHERE T2.setCode IN (SELECT code FROM sets WHERE name = 'Hour of Devastation');"
+        },
+        {
+            "user": "Now show only the formats where they have 'Legal' status.",
+            "response": "SELECT DISTINCT T2.name, T1.format FROM legalities AS T1 INNER JOIN cards AS T2 ON T1.uuid = T2.uuid WHERE T2.setCode IN (SELECT code FROM sets WHERE name = 'Hour of Devastation') AND T1.status = 'Legal';"
+        }
+    ]
+}

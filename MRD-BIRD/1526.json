@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "Which customer made a transaction of 634.8 on August 25, 2012?",
+            "response": "SELECT CustomerID FROM transactions_1k WHERE Date = '2012-08-25' AND Price = 634.8;"
+        },
+        {
+            "user": "What was their total consumption in 2012?",
+            "response": "SELECT SUM(Consumption) FROM yearmonth WHERE CustomerID = (SELECT CustomerID FROM transactions_1k WHERE Date = '2012-08-25' AND Price = 634.8) AND SUBSTR(Date, 1, 4) = '2012';"
+        },
+        {
+            "user": "What was their total consumption in 2013?",
+            "response": "SELECT SUM(Consumption) FROM yearmonth WHERE CustomerID = (SELECT CustomerID FROM transactions_1k WHERE Date = '2012-08-25' AND Price = 634.8) AND SUBSTR(Date, 1, 4) = '2013';"
+        },
+        {
+            "user": "What is the consumption decrease rate between those two years for them?",
+            "response": "SELECT CAST( (SUM(IIF(SUBSTR(Date, 1, 4) = '2012', Consumption, 0)) - SUM(IIF(SUBSTR(Date, 1, 4) = '2013', Consumption, 0)) ) AS FLOAT ) / SUM(IIF(SUBSTR(Date, 1, 4) = '2012', Consumption, 0)) FROM yearmonth WHERE CustomerID = (SELECT CustomerID FROM transactions_1k WHERE Date = '2012-08-25' AND Price = 634.8);"
+        }
+    ]
+}

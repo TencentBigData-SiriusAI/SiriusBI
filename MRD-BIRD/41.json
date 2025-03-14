@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "List all virtual schools along with their county names and average reading scores.",
+            "response": "SELECT T2.School, T2.County, T1.AvgScrRead FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode WHERE T2.Virtual = 'F';"
+        },
+        {
+            "user": "For each county, can you show their ranking based on those scores from highest to lowest?",
+            "response": "WITH virtual_schools AS ( SELECT T2.School, T2.County, T1.AvgScrRead FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode WHERE T2.Virtual = 'F' ) SELECT School, County, AvgScrRead, RANK() OVER (PARTITION BY County ORDER BY AvgScrRead DESC) AS rank FROM virtual_schools;"
+        },
+        {
+            "user": "Now, list the names of those that are among the top 5 in their respective counties.",
+            "response": "WITH ranked_schools AS ( SELECT T2.School, T1.AvgScrRead, RANK() OVER (PARTITION BY T2.County ORDER BY T1.AvgScrRead DESC) AS rnk FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode WHERE T2.Virtual = 'F' ) SELECT School FROM ranked_schools WHERE rnk <= 5;"
+        }
+    ]
+}

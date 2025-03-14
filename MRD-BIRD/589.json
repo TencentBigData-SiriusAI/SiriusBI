@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the maximum reputation score among all users?",
+            "response": "SELECT MAX(Reputation) FROM users;"
+        },
+        {
+            "user": "What are their user IDs?",
+            "response": "SELECT Id FROM users WHERE Reputation = (SELECT MAX(Reputation) FROM users);"
+        },
+        {
+            "user": "Can you also show their display names along with their IDs?",
+            "response": "SELECT Id, DisplayName FROM users WHERE Reputation = (SELECT MAX(Reputation) FROM users);"
+        }
+    ]
+}

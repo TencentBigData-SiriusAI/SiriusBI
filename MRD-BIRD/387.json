@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "How many cards are in the OGW set?",
+            "response": "SELECT COUNT(id) FROM set_translations WHERE setCode = 'OGW';"
+        },
+        {
+            "user": "What are the identification numbers of them?",
+            "response": "SELECT id FROM set_translations WHERE setCode = 'OGW';"
+        },
+        {
+            "user": "Can you show me the colors for each of them?",
+            "response": "SELECT id, colors FROM cards WHERE id IN (SELECT id FROM set_translations WHERE setCode = 'OGW');"
+        }
+    ]
+}

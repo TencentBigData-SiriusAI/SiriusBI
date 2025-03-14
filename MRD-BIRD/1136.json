@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which players prefer to use their left foot?",
+            "response": "SELECT id FROM Player_Attributes WHERE preferred_foot = 'left';"
+        },
+        {
+            "user": "What is the highest crossing score recorded among them?",
+            "response": "SELECT MAX(crossing) FROM Player_Attributes;"
+        },
+        {
+            "user": "How many of them have that score?",
+            "response": "SELECT COUNT(id) FROM Player_Attributes WHERE preferred_foot = 'left' AND crossing = (SELECT MAX(crossing) FROM Player_Attributes);"
+        }
+    ]
+}

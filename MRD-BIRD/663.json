@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the minimum age recorded among all users?",
+            "response": "SELECT MIN(Age) FROM users;"
+        },
+        {
+            "user": "How many users have that age?",
+            "response": "SELECT COUNT(Id) FROM users WHERE Age = (SELECT MIN(Age) FROM users);"
+        },
+        {
+            "user": "Can you list the user IDs of them?",
+            "response": "SELECT Id FROM users WHERE Age = (SELECT MIN(Age) FROM users);"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "What is the earliest recorded race date?",
+            "response": "SELECT MIN(date) AS earliest_date FROM races;"
+        },
+        {
+            "user": "Which year does it belong to?",
+            "response": "SELECT STRFTIME('%Y', MIN(date)) AS earliest_year FROM races;"
+        },
+        {
+            "user": "What is the month of that date?",
+            "response": "SELECT STRFTIME('%m', MIN(date)) AS earliest_month FROM races;"
+        },
+        {
+            "user": "List the names of races that occurred in that year and month.",
+            "response": "SELECT name FROM races WHERE STRFTIME('%Y', date) = (SELECT STRFTIME('%Y', MIN(date)) FROM races) AND STRFTIME('%m', date) = (SELECT STRFTIME('%m', MIN(date)) FROM races);"
+        }
+    ]
+}

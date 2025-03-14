@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is Emil Blonsky's weight in kilograms?",
+            "response": "SELECT weight_kg FROM superhero WHERE full_name LIKE 'Emil Blonsky';"
+        },
+        {
+            "user": "What is Charles Chandler's weight?",
+            "response": "SELECT weight_kg FROM superhero WHERE full_name LIKE 'Charles Chandler';"
+        },
+        {
+            "user": "What is the difference between their weights?",
+            "response": "SELECT (SELECT weight_kg FROM superhero WHERE full_name LIKE 'Emil Blonsky') - (SELECT weight_kg FROM superhero WHERE full_name LIKE 'Charles Chandler') AS weight_difference;"
+        }
+    ]
+}

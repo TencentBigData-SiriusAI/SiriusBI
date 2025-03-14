@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the highest number of favorites any post has received?",
+            "response": "SELECT MAX(FavoriteCount) FROM posts;"
+        },
+        {
+            "user": "Which posts have that count?",
+            "response": "SELECT Id FROM posts WHERE FavoriteCount = (SELECT MAX(FavoriteCount) FROM posts);"
+        },
+        {
+            "user": "What are the owner user IDs of those posts?",
+            "response": "SELECT OwnerUserId FROM posts WHERE FavoriteCount = (SELECT MAX(FavoriteCount) FROM posts);"
+        }
+    ]
+}

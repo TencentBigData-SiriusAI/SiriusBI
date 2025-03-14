@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which driver is the youngest based on date of birth?",
+            "response": "SELECT driverId FROM drivers ORDER BY dob DESC LIMIT 1;"
+        },
+        {
+            "user": "What is the earliest qualifying race date for them?",
+            "response": "SELECT races.date FROM qualifying JOIN races ON qualifying.raceId = races.raceId WHERE qualifying.driverId = (SELECT driverId FROM drivers ORDER BY dob DESC LIMIT 1) ORDER BY races.date ASC LIMIT 1;"
+        },
+        {
+            "user": "What are the year, name, date, and time of their first qualifying race?",
+            "response": "SELECT races.year, races.name, races.date, races.time FROM qualifying JOIN races ON qualifying.raceId = races.raceId WHERE qualifying.driverId = (SELECT driverId FROM drivers ORDER BY dob DESC LIMIT 1) ORDER BY races.date ASC LIMIT 1;"
+        }
+    ]
+}

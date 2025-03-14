@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which molecules are classified as carcinogenic?",
+            "response": "SELECT molecule_id FROM molecule WHERE label = '+';"
+        },
+        {
+            "user": "How many double bonds does each of them have?",
+            "response": "WITH carcinogenic_molecules AS (SELECT molecule_id FROM molecule WHERE label = '+') SELECT b.molecule_id, COUNT(*) AS double_bond_count FROM bond b INNER JOIN carcinogenic_molecules cm ON b.molecule_id = cm.molecule_id WHERE b.bond_type = '=' GROUP BY b.molecule_id;"
+        },
+        {
+            "user": "Which of them has the highest number of double bonds?",
+            "response": "WITH carcinogenic_molecules AS (SELECT molecule_id FROM molecule WHERE label = '+'), double_bonds AS (SELECT b.molecule_id, COUNT(*) AS cnt FROM bond b INNER JOIN carcinogenic_molecules cm ON b.molecule_id = cm.molecule_id WHERE b.bond_type = '=' GROUP BY b.molecule_id) SELECT molecule_id FROM double_bonds ORDER BY cnt DESC LIMIT 1;"
+        }
+    ]
+}

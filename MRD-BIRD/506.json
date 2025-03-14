@@ -1,0 +1,12 @@
+{
+    "turns": [
+        {
+            "user": "Which set codes have Japanese translations available?",
+            "response": "SELECT setCode FROM set_translations WHERE language = 'Japanese';"
+        },
+        {
+            "user": "How many of them are exclusively available in non-foil format?",
+            "response": "SELECT COUNT(id) FROM sets WHERE code IN (SELECT setCode FROM set_translations WHERE language = 'Japanese') AND isNonFoilOnly = 1;"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the highest bounty amount for vote type 8?",
+            "response": "SELECT MAX(BountyAmount) FROM votes WHERE VoteTypeId = 8;"
+        },
+        {
+            "user": "Which user(s) received that amount under vote type 8?",
+            "response": "SELECT UserId FROM votes WHERE VoteTypeId = 8 AND BountyAmount = (SELECT MAX(BountyAmount) FROM votes WHERE VoteTypeId = 8);"
+        },
+        {
+            "user": "What are their display names and website URLs?",
+            "response": "SELECT DisplayName, WebsiteUrl FROM users WHERE Id IN (SELECT UserId FROM votes WHERE VoteTypeId = 8 AND BountyAmount = (SELECT MAX(BountyAmount) FROM votes WHERE VoteTypeId = 8));"
+        }
+    ]
+}

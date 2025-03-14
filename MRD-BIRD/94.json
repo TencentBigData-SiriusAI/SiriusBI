@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which district is home to the oldest female client?",
+            "response": "SELECT district_id FROM client WHERE gender = 'F' ORDER BY birth_date ASC LIMIT 1;"
+        },
+        {
+            "user": "List the account numbers of female clients in that district along with their linked client information.",
+            "response": "WITH target_district AS (SELECT district_id FROM client WHERE gender = 'F' ORDER BY birth_date ASC LIMIT 1)\nSELECT T1.account_id\nFROM account AS T1\nINNER JOIN disp AS T3 ON T1.account_id = T3.account_id\nINNER JOIN client AS T4 ON T3.client_id = T4.client_id\nWHERE T1.district_id = (SELECT district_id FROM target_district) AND T4.gender = 'F';"
+        },
+        {
+            "user": "Calculate the gap between the highest and lowest average salaries across all districts.",
+            "response": "SELECT MAX(A11) - MIN(A11) AS salary_gap FROM district;"
+        }
+    ]
+}

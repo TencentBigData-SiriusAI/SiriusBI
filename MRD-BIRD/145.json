@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "Which account holder identification numbers have transactions of type 'VYBER KARTOU'?",
+            "response": "SELECT T1.account_id FROM trans AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE T1.operation = 'VYBER KARTOU';"
+        },
+        {
+            "user": "Which of those occurred during 1998?",
+            "response": "SELECT T1.account_id FROM trans AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T1.date) = '1998' AND T1.operation = 'VYBER KARTOU';"
+        },
+        {
+            "user": "What is the average amount for those transactions?",
+            "response": "SELECT AVG(amount) FROM trans WHERE STRFTIME('%Y', date) = '1998';"
+        },
+        {
+            "user": "Now, show accounts with those transactions below the average amount.",
+            "response": "SELECT T1.account_id FROM trans AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T1.date) = '1998' AND T1.operation = 'VYBER KARTOU' AND T1.amount < (SELECT AVG(amount) FROM trans WHERE STRFTIME('%Y', date) = '1998');"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the minimum reputation score among all users?",
+            "response": "SELECT MIN(Reputation) AS MinReputation FROM users;"
+        },
+        {
+            "user": "What are their IDs?",
+            "response": "SELECT Id FROM users WHERE Reputation = (SELECT MIN(Reputation) FROM users);"
+        },
+        {
+            "user": "What badges have they earned?",
+            "response": "SELECT T2.Name FROM users AS T1 INNER JOIN badges AS T2 ON T1.Id = T2.UserId WHERE T1.Reputation = (SELECT MIN(Reputation) FROM users);"
+        }
+    ]
+}

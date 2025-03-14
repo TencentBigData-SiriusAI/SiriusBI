@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which posts have a score greater than 60?",
+            "response": "SELECT Id FROM posts WHERE Score > 60;"
+        },
+        {
+            "user": "Show all post history entries for those posts.",
+            "response": "SELECT * FROM postHistory WHERE PostId IN (SELECT Id FROM posts WHERE Score > 60);"
+        },
+        {
+            "user": "Now, list their post IDs and associated user IDs.",
+            "response": "SELECT PostId, UserId FROM postHistory WHERE PostId IN (SELECT Id FROM posts WHERE Score > 60);"
+        }
+    ]
+}

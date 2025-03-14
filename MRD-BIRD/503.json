@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Is there a card named 'Samite Pilgrim' in the database?",
+            "response": "SELECT 1 FROM cards WHERE name = 'Samite Pilgrim' LIMIT 1;"
+        },
+        {
+            "user": "Which set code is associated with it?",
+            "response": "SELECT setCode FROM cards WHERE name = 'Samite Pilgrim';"
+        },
+        {
+            "user": "What is the expansion type of its set?",
+            "response": "SELECT type FROM sets WHERE code IN (SELECT setCode FROM cards WHERE name = 'Samite Pilgrim');"
+        }
+    ]
+}

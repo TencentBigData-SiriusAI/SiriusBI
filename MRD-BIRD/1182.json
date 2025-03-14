@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the ID of the patient who first came to the hospital on 1991-06-13 and was diagnosed with SJS?",
+            "response": "SELECT ID FROM Patient WHERE `First Date` = '1991-06-13' AND Diagnosis = 'SJS';"
+        },
+        {
+            "user": "Which laboratory tests did they undergo in 1995?",
+            "response": "SELECT * FROM Laboratory WHERE ID = (SELECT ID FROM Patient WHERE `First Date` = '1991-06-13' AND Diagnosis = 'SJS') AND STRFTIME('%Y', Date) = '1995';"
+        },
+        {
+            "user": "What is the total number of those tests in 1995?",
+            "response": "SELECT COUNT(*) FROM Laboratory WHERE ID = (SELECT ID FROM Patient WHERE `First Date` = '1991-06-13' AND Diagnosis = 'SJS') AND STRFTIME('%Y', Date) = '1995';"
+        }
+    ]
+}

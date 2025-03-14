@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which superheroes have the super power of 'Super Strength'?",
+            "response": "SELECT superhero_name FROM superhero AS T1 WHERE EXISTS (SELECT 1 FROM hero_power AS T2 INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T3.power_name = 'Super Strength' AND T1.id = T2.hero_id);"
+        },
+        {
+            "user": "Which ones are published by Marvel Comics?",
+            "response": "SELECT superhero_name FROM superhero AS T1 WHERE EXISTS (SELECT 1 FROM publisher AS T4 WHERE T4.publisher_name = 'Marvel Comics' AND T1.publisher_id = T4.id);"
+        },
+        {
+            "user": "Now, list those from Marvel Comics who have that super power.",
+            "response": "SELECT superhero_name FROM superhero AS T1 WHERE EXISTS (SELECT 1 FROM hero_power AS T2 INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T3.power_name = 'Super Strength' AND T1.id = T2.hero_id) AND EXISTS (SELECT 1 FROM publisher AS T4 WHERE T4.publisher_name = 'Marvel Comics' AND T1.publisher_id = T4.id);"
+        }
+    ]
+}

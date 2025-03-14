@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which molecules are classified as carcinogenic?",
+            "response": "SELECT molecule_id FROM molecule WHERE label = '+';"
+        },
+        {
+            "user": "How many single bonds does each of them have?",
+            "response": "WITH carcinogenic_molecules AS (SELECT molecule_id FROM molecule WHERE label = '+') SELECT T1.molecule_id, COUNT(*) AS single_bond_count FROM bond T1 INNER JOIN carcinogenic_molecules T2 ON T1.molecule_id = T2.molecule_id WHERE T1.bond_type = '-' GROUP BY T1.molecule_id;"
+        },
+        {
+            "user": "What is the average number of single bonds across them?",
+            "response": "WITH carcinogenic_molecules AS (SELECT molecule_id FROM molecule WHERE label = '+'), single_bond_counts AS (SELECT T1.molecule_id, COUNT(*) AS count FROM bond T1 INNER JOIN carcinogenic_molecules T2 ON T1.molecule_id = T2.molecule_id WHERE T1.bond_type = '-' GROUP BY T1.molecule_id) SELECT AVG(count) FROM single_bond_counts;"
+        }
+    ]
+}

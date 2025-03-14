@@ -1,0 +1,12 @@
+{
+    "turns": [
+        {
+            "user": "How many card sets have a Brazilian Portuguese translation?",
+            "response": "SELECT COUNT(DISTINCT setCode) FROM set_translations WHERE language = 'Portuguese (Brazil)';"
+        },
+        {
+            "user": "How many of those are marked as online-only?",
+            "response": "SELECT COUNT(*) FROM sets WHERE code IN (SELECT setCode FROM set_translations WHERE language = 'Portuguese (Brazil)') AND isOnlineOnly = 1;"
+        }
+    ]
+}

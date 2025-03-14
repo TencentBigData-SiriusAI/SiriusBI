@@ -1,0 +1,12 @@
+{
+    "turns": [
+        {
+            "user": "What is the set code for the card 'Angel of Mercy'?",
+            "response": "SELECT setCode FROM cards WHERE name = 'Angel of Mercy';"
+        },
+        {
+            "user": "Which languages are associated with that set code in set_translations?",
+            "response": "WITH card_set AS (SELECT setCode FROM cards WHERE name = 'Angel of Mercy') SELECT language FROM set_translations WHERE setCode = (SELECT setCode FROM card_set LIMIT 1);"
+        }
+    ]
+}

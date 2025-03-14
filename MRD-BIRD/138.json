@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "List all districts along with their number of crimes committed in 1995, ordered from highest to lowest.",
+            "response": "SELECT district_id, A15 FROM district ORDER BY A15 DESC;"
+        },
+        {
+            "user": "What is the second-highest number of crimes committed that year across all districts?",
+            "response": "SELECT A15 FROM district ORDER BY A15 DESC LIMIT 1 OFFSET 1;"
+        },
+        {
+            "user": "How many male clients are in that district?",
+            "response": "SELECT COUNT(T1.client_id) FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T1.gender = 'M' AND T2.A15 = (SELECT A15 FROM district ORDER BY A15 DESC LIMIT 1 OFFSET 1);"
+        }
+    ]
+}

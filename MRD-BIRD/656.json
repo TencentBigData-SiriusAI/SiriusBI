@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the highest score of a child post?",
+            "response": "SELECT MAX(Score) AS HighestScore FROM posts WHERE ParentId IS NOT NULL;"
+        },
+        {
+            "user": "Which user owns that child post?",
+            "response": "SELECT OwnerUserId FROM posts WHERE ParentId IS NOT NULL ORDER BY Score DESC LIMIT 1;"
+        },
+        {
+            "user": "What is their display name?",
+            "response": "SELECT DisplayName FROM users WHERE Id = (SELECT OwnerUserId FROM posts WHERE ParentId IS NOT NULL ORDER BY Score DESC LIMIT 1);"
+        }
+    ]
+}

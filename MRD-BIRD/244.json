@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the number of double bonds for each molecule?",
+            "response": "SELECT molecule_id, COUNT(*) AS num_double_bonds FROM bond WHERE bond_type = '=' GROUP BY molecule_id;"
+        },
+        {
+            "user": "Which one has the highest number of double bonds?",
+            "response": "SELECT molecule_id FROM bond WHERE bond_type = '=' GROUP BY molecule_id ORDER BY COUNT(*) DESC LIMIT 1;"
+        },
+        {
+            "user": "What is the label of that molecule?",
+            "response": "SELECT T1.label FROM molecule AS T1 INNER JOIN ( SELECT molecule_id FROM bond WHERE bond_type = '=' GROUP BY molecule_id ORDER BY COUNT(*) DESC LIMIT 1 ) AS T2 ON T1.molecule_id = T2.molecule_id;"
+        }
+    ]
+}

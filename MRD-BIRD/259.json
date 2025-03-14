@@ -1,0 +1,20 @@
+{
+    "turns": [
+        {
+            "user": "Which bonds are of type single?",
+            "response": "SELECT bond_id, molecule_id FROM bond WHERE bond_type = '-';"
+        },
+        {
+            "user": "Which molecules have them?",
+            "response": "SELECT DISTINCT molecule_id FROM bond WHERE bond_type = '-';"
+        },
+        {
+            "user": "What elements are present in them?",
+            "response": "SELECT DISTINCT element FROM atom WHERE molecule_id IN (SELECT DISTINCT molecule_id FROM bond WHERE bond_type = '-');"
+        },
+        {
+            "user": "How many different elements are there in total in those molecules?",
+            "response": "SELECT COUNT(DISTINCT element) FROM atom WHERE molecule_id IN (SELECT DISTINCT molecule_id FROM bond WHERE bond_type = '-');"
+        }
+    ]
+}

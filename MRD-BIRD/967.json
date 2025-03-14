@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What are the code numbers of the top 3 youngest drivers based on date of birth?",
+            "response": "SELECT code FROM drivers ORDER BY JULIANDAY(dob) DESC LIMIT 3;"
+        },
+        {
+            "user": "What nationalities do they have?",
+            "response": "SELECT nationality FROM drivers ORDER BY JULIANDAY(dob) DESC LIMIT 3;"
+        },
+        {
+            "user": "How many of them are from the Netherlands (Dutch)?",
+            "response": "SELECT COUNT(*) FROM (SELECT nationality FROM drivers ORDER BY JULIANDAY(dob) DESC LIMIT 3) WHERE nationality = 'Dutch';"
+        }
+    ]
+}

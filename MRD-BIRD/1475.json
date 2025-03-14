@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "Which customers belong to the KAM segment?",
+            "response": "SELECT CustomerID FROM customers WHERE Segment = 'KAM';"
+        },
+        {
+            "user": "What is their consumption data for the year 2012?",
+            "response": "SELECT T2.CustomerID, T2.Date, T2.Consumption FROM customers AS T1 INNER JOIN yearmonth AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Segment = 'KAM' AND T2.Date BETWEEN '201201' AND '201212';"
+        },
+        {
+            "user": "What is their total consumption for that year?",
+            "response": "SELECT T2.CustomerID, SUM(T2.Consumption) AS TotalConsumption FROM customers AS T1 INNER JOIN yearmonth AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Segment = 'KAM' AND T2.Date BETWEEN '201201' AND '201212' GROUP BY T2.CustomerID;"
+        }
+    ]
+}

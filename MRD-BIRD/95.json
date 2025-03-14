@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the client ID of the youngest client based on their birth date?",
+            "response": "SELECT client_id FROM client ORDER BY birth_date DESC LIMIT 1;"
+        },
+        {
+            "user": "Which account numbers are linked to them?",
+            "response": "SELECT account_id FROM disp WHERE client_id = (SELECT client_id FROM client ORDER BY birth_date DESC LIMIT 1);"
+        },
+        {
+            "user": "List out the account numbers of those clients who have the highest average salary.",
+            "response": "SELECT T1.account_id FROM account AS T1 INNER JOIN disp AS T2 ON T1.account_id = T2.account_id INNER JOIN client AS T3 ON T2.client_id = T3.client_id INNER JOIN district AS T4 ON T4.district_id = T1.district_id WHERE T2.client_id = (SELECT client_id FROM client ORDER BY birth_date DESC LIMIT 1) GROUP BY T4.A11, T1.account_id;"
+        }
+    ]
+}

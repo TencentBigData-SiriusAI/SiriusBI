@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "List all players' names along with their heights, ordered from tallest to shortest.",
+            "response": "SELECT player_name, height FROM Player ORDER BY height DESC;"
+        },
+        {
+            "user": "Can you display a ranking for each of them where the tallest has rank 1?",
+            "response": "SELECT player_name, height, DENSE_RANK() OVER (ORDER BY height DESC) AS rank FROM Player;"
+        },
+        {
+            "user": "Now, show only the tallest one.",
+            "response": "SELECT player_name FROM (SELECT player_name, height, DENSE_RANK() OVER (ORDER BY height DESC) AS rank FROM Player) WHERE rank = 1;"
+        }
+    ]
+}

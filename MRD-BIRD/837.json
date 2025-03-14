@@ -1,0 +1,16 @@
+{
+    "turns": [
+        {
+            "user": "What is the lowest attribute value recorded in the hero attributes?",
+            "response": "SELECT MIN(attribute_value) FROM hero_attribute;"
+        },
+        {
+            "user": "How many distinct heroes have that minimum value?",
+            "response": "SELECT COUNT(DISTINCT hero_id) FROM hero_attribute WHERE attribute_value = (SELECT MIN(attribute_value) FROM hero_attribute);"
+        },
+        {
+            "user": "Can you list the hero IDs with that value?",
+            "response": "SELECT hero_id FROM hero_attribute WHERE attribute_value = (SELECT MIN(attribute_value) FROM hero_attribute);"
+        }
+    ]
+}
