@@ -7,12 +7,12 @@
 [中文文档](README_CN.md) | [Paper (Preview)](https://arxiv.org/abs/2411.06102) | 
 
 ## 🚀 Key Innovations
-- ​**MRD-Q (Multi-Resolution Domain Quantization)**  
-  Dynamic knowledge quantization across table-level statistics to column-level constraints
-- ​**Confidence-Driven SQL Generation**  
-  Contains one-step SQL generation method based on automated data preparation and two-step SQL generation method based on Semantic Intermediate Representation (SIR).
-- ​**Enterprise Knowledge Bootstrapping**  
-  Automated knowledge graph construction for Snowflake/BigQuery/Spark
+- ​**Practical ChatBI System**  
+  A unified system integrating four core functionalities — knowledge management, multi-round dialogue with querying, SQL generation, and data insight.
+- ​**New Dialogue Analysis Mechanism**  
+  MRD-Q consists of semantic completion, knowledge-guided clarification, and proactive querying processes to effectively address issues raised by ambiguous or incomplete queries in real-world scenarios.
+- ​**Economic Domain Adaptation Strategy**  
+  A dynamic strategy selection mechanism for SQL generation conditioned on data characteristics.
 
 ## 📊 Benchmark Results
 ### Performance on Industrial Benchmarks
@@ -21,15 +21,14 @@
 | BIRD          | 68.97%      | 
 | MRD-BIRD      | 51.14%      | 
 
-### Comparative Analysis
-![Accuracy Comparison](docs/images/benchmark.png)
-
 ## 📂 Dataset Access
 ### Publicly Available Benchmarks
-1. ​**SRD/MRD-Industry**  
+1. ​**SRD-Industry/MRD-Industry**  
    Cannot be disclosed due to data privacy reasons.
 
-2. ​**MRD-BIRD Extension**  
-   Available upon xxxx.
+2. ​**MRD-BIRD**  
+   Available under the directory `MRD-BIRD` in this repo.
 
 ## 🔧 System Architecture
+
+![WorkFlow](SiriusBI_workflow.png)
