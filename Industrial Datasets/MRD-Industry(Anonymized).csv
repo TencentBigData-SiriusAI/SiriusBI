@@ -1,0 +1,114 @@
+﻿问题编号,轮次,测试问题,目标SQL,补全问题
+1,1,23年XXX行业A级客户名单及其消耗,"SELECT
+advertise_name, total_cost
+from 
+(SELECT advertise_name,
+sum(total_cost) as total_cost 
+from t0
+where day_year=2023
+and team='XXX'
+group by advertise_name
+)a
+where total_cost < v1 and total_cost >= v0",23年XXX行业A级客户名单及其消耗
+1,2,YYY行业呢？,"SELECT
+advertise_name,total_cost
+from 
+(SELECT advertise_name,
+sum(total_cost) as total_cost 
+fromt0
+where day_year=2023
+and team='YYY'
+group by advertise_name
+)a
+where total_cost < v1 and total_cost >= v0",23年YYY行业A级客户名单及其消耗
+2,1,23年大盘S级客户名单及其消耗,"SELECT
+advertise_name,total_cost
+from 
+(SELECT advertise_name,
+sum(total_cost) as total_cost 
+from t0
+where day_year=2023
+group by advertise_name
+)a
+where total_cost >= v1",23年大盘S级客户名单及其消耗
+2,2,22年情况呢,"SELECT
+advertise_name,total_cost
+from 
+(SELECT advertise_name,
+sum(total_cost) as total_cost 
+from t0
+where day_year=2022
+group by advertise_name
+)a
+where total_cost >= v1",22年大盘S级客户名单及其消耗
+3,1,【XXX】23年【月】【活跃客户数】,"SELECT day_month,count(distinct advertise_name) as ke_num
+FROM t0
+WHERE 
+	day_year=2023
+and team='XXX'
+and total_cost>0
+GROUP BY day_month",【XXX】23年【月】【活跃客户数】
+3,2,YYY行业呢,"SELECT day_month,count(distinct advertise_name) as ke_num
+FROM t0
+WHERE 
+	day_year=2023
+and team='YYY'
+and total_cost>0
+GROUP BY day_month",【YYY】23年【月】【活跃客户数】
+4,1,AAA公司YTD的消耗同比,"SELECT
+ytd_cost/qunian_ytd_cost-1 as yoy_tongbi
+FROM (SELECT
+	sum(case when process_time>=DATE_TRUNC('year',CURRENT_DATE) then total_cost else 0 end) as ytd_cost,
+	sum(case when process_time <= DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR) then total_cost else 0 end) as qunian_ytd_cost
+	from t0
+	where process_time>=DATE_TRUNC('year',DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR)) AND process_time < CURRENT_DATE
+	and advertise_name='AAA'
+) a",AAA公司YTD的消耗同比
+4,2,BBB公司呢,"SELECT
+ytd_cost/qunian_ytd_cost-1 as yoy_tongbi
+FROM (SELECT
+	sum(case when process_time>=DATE_TRUNC('year',CURRENT_DATE) then total_cost else 0 end) as ytd_cost,
+	sum(case when process_time <= DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR) then total_cost else 0 end) as qunian_ytd_cost
+	from t0
+	where process_time>=DATE_TRUNC('year',DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR)) AND process_time < CURRENT_DATE
+	and advertise_name='BBB'
+) a",BBB公司YTD的消耗同比
+4,3,CCC公司呢,"SELECT
+ytd_cost/qunian_ytd_cost-1 as yoy_tongbi
+FROM (SELECT
+	sum(case when process_time>=DATE_TRUNC('year',CURRENT_DATE) then total_cost else 0 end) as ytd_cost,
+	sum(case when process_time <= DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR) then total_cost else 0 end) as qunian_ytd_cost
+	from t0
+	where process_time>=DATE_TRUNC('year',DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR)) AND process_time < CURRENT_DATE
+	and advertise_name='CCC'
+) a",CCC公司YTD的消耗同比
+5,1,A盟在H中心的QTD消耗是多少,"SELECT SUM(total_cost) AS total_cost
+FROM t0
+WHERE group_name = 'A盟'
+	AND center_name = 'H中心'
+	AND process_time < CURRENT_DATE
+	AND process_time >= DATE_TRUNC('quarter', CURRENT_DATE)",A盟在H中心的QTD消耗是多少
+5,2,代理商B的情况呢,"SELECT SUM(total_cost) AS total_cost
+FROM t0
+WHERE group_name = 'B'
+	AND center_name = 'H中心'
+	AND process_time < CURRENT_DATE
+	AND process_time >= DATE_TRUNC('quarter', CURRENT_DATE)",代理商B在H中心的QTD消耗是多少
+6,1,查询过去七天大盘总消耗,"SELECT SUM(total_cost) AS total_cost
+FROM t0
+WHERE process_time >= DATE_SUB(CURRENT_DATE, INTERVAL 7 DAY)
+	AND process_time < CURRENT_DATE",查询过去七天大盘总消耗
+6,2,分天趋势情况如何？,"SELECT process_time,SUM(total_cost) AS total_cost
+FROM t0
+WHERE process_time >= DATE_SUB(CURRENT_DATE, INTERVAL 7 DAY)
+	AND process_time < CURRENT_DATE
+GROUP BY process_time",过去七天每天的大盘总消耗趋势
+7,1,查询MTD大盘总消耗,"SELECT SUM(total_cost) AS total_cost
+FROM t0
+WHERE process_time >= DATE_TRUNC('month', CURRENT_DATE)
+	AND process_time < CURRENT_DATE",查询MTD大盘总消耗
+7,2,单看WWW部门流量呢？,"SELECT SUM(total_cost) AS total_cost
+FROM t0
+WHERE process_time >= DATE_TRUNC('month', CURRENT_DATE)
+	AND process_time < CURRENT_DATE
+       AND flow_name = 'WWW'",WWW部门MTD流量的总消耗

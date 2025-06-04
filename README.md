@@ -4,8 +4,6 @@
 
 > ​**Note**: This repository serves as the technical companion for our VLDB 2025 paper. Code implementation will be released pending corporate approval. 
 
-[中文文档](README_CN.md) | [Paper (Preview)](https://arxiv.org/abs/2411.06102) | 
-
 ## 🚀 Key Innovations
 - ​**Practical ChatBI System**  
   A unified system integrating four core functionalities — knowledge management, multi-round dialogue with querying, SQL generation, and data insight.
@@ -14,20 +12,23 @@
 - ​**Economic Domain Adaptation Strategy**  
   A dynamic strategy selection mechanism for SQL generation conditioned on data characteristics.
 
-## 📊 Benchmark Results
-### Performance on Industrial Benchmarks
+## 📊 NL2SQL Performance
+### On Academic Benchmarks
 | Dataset       | EX          |   
 |---------------|-------------|
 | BIRD          | 68.97%      | 
 | MRD-BIRD      | 51.14%      | 
+### On Industrial Datasets
+| Dataset       | UEX         |   
+|---------------|-------------|
+| SRD-Industry  | 83.97%      | 
+| MRD-Industry  | 62.50%      | 
 
 ## 📂 Dataset Access
-### Publicly Available Benchmarks
-1. ​**SRD-Industry/MRD-Industry**  
-   Cannot be disclosed due to data privacy reasons.
-
-2. ​**MRD-BIRD**  
-   Available under the directory `MRD-BIRD` in this repo.
+1. ​**MRD-BIRD**  
+   It is available under the directory `MRD-BIRD`.
+2. **SRD/MRD-Industry**
+   They are partially available after anonymized process under the directory `Industrial Datasets`.
 
 ## 🔧 System Architecture
 
